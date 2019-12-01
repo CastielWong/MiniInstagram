@@ -2,6 +2,14 @@
 # Created by https://www.gitignore.io/api/macos,python,django,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=macos,python,django,visualstudiocode
 
+
+# migrations and images uploaded are not needed
+*/migrations/*.py
+static/images/
+
+# gitignore exception
+!*/migrations/__init__.py
+
 ### Django ###
 *.log
 *.pot
