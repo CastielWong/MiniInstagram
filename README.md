@@ -17,6 +17,13 @@ Toolkit: git, homebrew, pipenv, heroku
 
 ## Preparation
 
+### Installation
+Install software and tools to be used:
+- Xcode tool:
+- Homebrew: software package management system for Mac
+- Python: interpreted, high-level, general-purpose programming language
+- pipenv: manage python packages in virtual environment
+
 1. Install Xcode tool chain and Homebrew:
 ```sh
 xcode-select --install
@@ -26,25 +33,28 @@ xcode-select --install
 ```
 2. Install Python via Homebrew: `brew install python3`
 3. Install pipenv via pip: `pip3 install pipenv`
-4. Create a directory for the project
+
+### Initialization
+For any new project, follow steps below:
+1. Create a directory for the project
 ```sh
 mkdir MiniInstagram
 cd MiniInstagram
 ```
-5. Install Django inside the project via pipenv: `pipenv install django`
-6. Create the Django project
+2. Create the Django project
 ```sh
-# activate this project's virtualenv
+# activate this project's virtualenv, the virtual environment would be created if doesn't exist
 pipenv shell
+
+# install Django inside the project via pipenv: 
+pipenv install django
 
 # create the Django project with an identifiable name under current directory
 django-admin startproject {project} .
-# run the server to check if it's working properly
-python manage.py runserver
-
-# deactivate the virtual environment
-exit
 ```
+3. Run the project to verify it's working properly: `python manage.py runserver`
+4. Press CONTROL-C to quit
+5. Deactivate the virtual environment: `exit`
 
 
 ## Structure
