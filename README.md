@@ -55,6 +55,16 @@ django-admin startproject {project} .
 3. Run the project to verify it's working properly: `python manage.py runserver`
 4. Press CONTROL-C to quit
 5. Deactivate the virtual environment: `exit`
+6. Create a template directory for html files and map it in "{project}/setting.py"
+```py
+TEMPLATES = [
+    {
+        ...
+        'DIRS': [os.path.join(BASE_DIR, '{templates}')],
+        ...
+    },
+]
+```
 
 
 ## Structure
@@ -103,15 +113,34 @@ INSTALLED_APPS = [
 
 ### Static Web
 urls.py -> views.py -> {templates}/
-
-Set up template directory in project/settings.py, like:
+1. Configure View in views.py, for example:
 ```py
-TEMPLATES = [{
-    ...
-    'DIRS': [os.path.join(BASE_DIR, '{templates}')],
-    ...
-}]
+from django.views.generic import TemplateView
+
+class HelloDjango(TemplateView):
+    template_name = 'index.html'
 ```
+2. Configure URLConfs:
+    1. In app level, create a urls.py to manage the inside URLConfiguration
+    ```py
+    from django.urls import path
+
+    from . import views
+
+    urlpatterns = [
+        path('', views.HelloDjango.as_view()),
+    ]
+    ```
+    2. In project level, update urls.py:
+    ```py
+    from django.urls import path, include
+    
+    urlpatterns = [
+        ...,
+        path('{path}/', include('{app}.urls')),
+    ]
+    ```
+
 
 ### External Library
 Install 3rd party
