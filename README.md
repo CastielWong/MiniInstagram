@@ -157,7 +157,11 @@ from {app}.models import Post
 admin.site.register({model})
 ```
 
+Note that for each model created, Django would add an auto-incremented primary key field automatically, which can be accessed via `pk` or `id`. For example, we can use it into path in urls.py, like `path('{path}/<int:pk>', ...)`.
+
 ### View
+Append `STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]` in settings.py to make sure Django knows where to find static files. 
+
 View in Django is corresponding to the Controller part in MVC, below shows steps in general to configure View.
 
 1. Configure View in views.py, for example:
@@ -187,8 +191,7 @@ class HelloDjango(TemplateView):
         path('{path}/', include('{app}.urls')),
     ]
     ```
-3. Create corresponding html under templates directory.
-
+3. Create corresponding html under templates directory, note that remember to put '/' for relative path to ensure the source is retrived, like `<img src="/{file}">`. 
 
 
 ## Other
