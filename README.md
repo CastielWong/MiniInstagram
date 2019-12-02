@@ -52,10 +52,21 @@ pipenv install django
 # create the Django project with an identifiable name under current directory
 django-admin startproject {project} .
 ```
-3. Run the project to verify it's working properly: `python manage.py runserver`
-4. Press CONTROL-C to quit
-5. Deactivate the virtual environment: `exit`
-6. Create a template directory for html files and map it in "{project}/setting.py"
+3. Run the project to verify http://localhost:8000/ is working properly, a SQLite DB should be created accordingly: 
+```py
+python manage.py runserver
+```
+4. Create an admin user for the project
+```py
+# migrate all default apps
+python manage.py migrate
+#After migration, create an admin user for the project: 
+python manage.py createsuperuser
+```
+5. Log in as the admin user via http://localhost:8000/admin/
+6. Press CONTROL-C to quit
+7. Deactivate the virtual environment: `exit`
+8. Create a template directory for html files and map it in "{project}/setting.py"
 ```py
 TEMPLATES = [
     {
@@ -111,8 +122,44 @@ INSTALLED_APPS = [
 ...
 ```
 
-### Static Web
-urls.py -> views.py -> {templates}/
+### External Library
+Install 3rd party below to support more functionalities:
+```sh
+# install for better image rendering
+pipenv install django-imagekit
+# pillow is needed for the Python Imaging Library
+pip install pillow
+```
+
+Remember to add them into settings.py to enable:
+```py
+...
+INSTALLED_APPS = [
+    ...,
+    'imagekit',
+    ...
+]
+```
+
+### Model
+1. Create a new model in models.py, note that the image path would be created automatically if doesn't exist yet
+2. Synchronize model with database:
+```py
+# `makemigrations` would check the difference between all current models and migrations files in the apps
+python manage.py makemigrations
+# migrate would take all migrations files to synchronize models into database
+python manage.py migrate
+```
+3. Register the app's model in admin page.
+```py
+from {app}.models import Post
+
+admin.site.register({model})
+```
+
+### View
+View in Django is corresponding to the Controller part in MVC, below shows steps in general to configure View.
+
 1. Configure View in views.py, for example:
 ```py
 from django.views.generic import TemplateView
@@ -134,40 +181,14 @@ class HelloDjango(TemplateView):
     2. In project level, update urls.py:
     ```py
     from django.urls import path, include
-    
+
     urlpatterns = [
         ...,
         path('{path}/', include('{app}.urls')),
     ]
     ```
+3. Create corresponding html under templates directory.
 
-
-### External Library
-Install 3rd party
-```py
-pipenv install django-imagekit
-```
-
-### Database
-
-```py
-# `makemigrations` would check the difference between all current models and migrations files in the apps
-python manage.py makemigrations
-# migrate would take all migrations files to synchronize models into database
-python manage.py migrate
-
-# create an admin user
-python manage.py createsuperuser
-```
-
-
-Import model in admin under the app.
-```py
-from {app}.models import Post
-
-# Register your models here.
-admin.site.register({model})
-```
 
 
 ## Other
