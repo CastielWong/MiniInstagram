@@ -194,6 +194,25 @@ class HelloDjango(TemplateView):
 3. Create corresponding html under templates directory, note that remember to put '/' for relative path to ensure the source is retrived, like `<img src="/{file}">`. 
 
 
+## Reset
+To reset existing database and files, follow steps:
+1. Remove any existing migrations:
+```sh
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+```
+2. Remove existing database and static files (make sure it's expected since everything would be cleanup):
+```sh
+rm db.sqlite3
+rm -r static
+```
+3. Regenerate migrations and database schema:
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+
 ## Other
 {%  %}: template language
 {{  }}: variable
@@ -289,3 +308,4 @@ Django includes:
 - Custom template tags and filters: https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/
 - https://github.com/yibeibaoke/InstaDemo
 - Django Rest framework: https://www.django-rest-framework.org/
+- How to Reset Migrations: https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
