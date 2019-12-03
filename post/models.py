@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from imagekit.models import ProcessedImageField
 
 class Post(models.Model):
@@ -11,4 +12,8 @@ class Post(models.Model):
         null=True,
     )
 
+    # return to its detail page when it's created
+    def get_absolute_url(self):
+        return reverse("post_detail", kwargs={"pk": self.pk})
+    
 
