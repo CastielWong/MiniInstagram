@@ -1,4 +1,21 @@
 
+- [Mini Instragram](#mini-instragram)
+    - [Overview](#overview)
+    - [Preparation](#preparation)
+        - [Installation](#installation)
+        - [Initialization](#initialization)
+    - [Structure](#structure)
+    - [Development](#development)
+        - [Component](#component)
+        - [External Library](#external-library)
+        - [Model](#model)
+        - [View](#view)
+    - [Reset](#reset)
+    - [Other](#other)
+- [Deployment](#deployment)
+- [Django Concept](#django-concept)
+- [Authentication vs Authorization](#authentication-vs-authorization)
+- [Reference](#reference)
 
 # Mini Instragram
 Instructions below is for Mac specifically, windows can be a bit different.
@@ -60,7 +77,7 @@ python manage.py runserver
 ```py
 # migrate all default apps
 python manage.py migrate
-#After migration, create an admin user for the project: 
+# After migration, create an admin user for the project: 
 python manage.py createsuperuser
 ```
 5. Log in as the admin user via http://localhost:8000/admin/
