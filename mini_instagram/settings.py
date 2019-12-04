@@ -125,3 +125,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # the page to load after login
 LOGIN_REDIRECT_URL = 'index'
+
+LOGOUT_REDIRECT_URL = 'index'
