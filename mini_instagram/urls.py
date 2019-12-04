@@ -21,7 +21,10 @@ import post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # 'django.contrib.auth' provides the 'login' view to handle login operation
+    # browse something like "localhost:8000/auth/demo" to see what path is provided
     path('auth/', include('django.contrib.auth.urls')),
+    path('auth/signup', views.SignUp.as_view(), name='signup'),
     path('posts/', include('post.urls')),
     path('entry/', views.HelloDjango.as_view(), name='entry'),
     path('', post.views.PostListView.as_view(), name='index'),
