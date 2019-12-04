@@ -1,4 +1,25 @@
 
+<header>
+    <ul>
+        {% if request.user.is_authenticated %}
+        <li>
+            <p> Hi, {{ request.user.username }}
+        </li>
+        <li>
+            <a href="/entry">Logout</a>
+        </li>
+        {% else %}
+        <li>
+            {% comment %} looks like 'login' is the default url provided {% endcomment %}
+            <a href="{% url 'login' %}">Login</a>
+        </li>
+        <li>
+            <a href="/">Signup</a>
+        </li>
+        {% endif %}
+    </ul>
+</header>
+
 <div>
     {% for post in object_list %}
         <a href="{% url 'post_detail' post.pk %}">
