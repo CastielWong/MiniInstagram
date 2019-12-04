@@ -309,3 +309,4 @@ Django includes:
 - https://github.com/yibeibaoke/InstaDemo
 - Django Rest framework: https://www.django-rest-framework.org/
 - How to Reset Migrations: https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
+- Access Mixins: https://django-braces.readthedocs.io/en/latest/access.html
