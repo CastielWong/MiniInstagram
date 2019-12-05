@@ -1,0 +1,30 @@
+
+<header>
+    <div>
+        <a href="/">Mini Instagram</a>
+    </div>
+
+    <div>
+        <ul>
+            {% if request.user.is_authenticated %}
+            <li>
+                <p> Hi, {{ request.user.username }}
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                {% comment %} looks like 'login' is the default url provided {% endcomment %}
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'signup' %}">Signup</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</header>
+
+{% block content %}
+{% endblock content %}
