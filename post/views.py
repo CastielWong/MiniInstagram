@@ -6,6 +6,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models
 
+class UserProfile(LoginRequiredMixin, DetailView):
+    model = models.CustomUser
+    template_name = "user/profile.html"
+    login_url = 'login'
+
 class PostIndex(ListView):
     model = models.Post
     template_name = "index.html"

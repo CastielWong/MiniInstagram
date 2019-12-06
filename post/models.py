@@ -12,7 +12,10 @@ class CustomUser(AbstractUser):
         blank=True,
     )
 
-    def get_following(self):
+    def __str__(self):
+        return self.username
+
+    def get_followings(self):
         followings = UserConnection.objects.filter(follower=self)
         return followings
 
@@ -23,8 +26,6 @@ class CustomUser(AbstractUser):
     def is_followed_by(self, uers):
         return self.get_followers().filter(follower=user).exits()
     
-    def __str__(self):
-        return self.username
 
 class Post(models.Model):
     author = models.ForeignKey(
@@ -32,7 +33,7 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.CASCADE,
-        related_name='instagram_posts',
+        related_name='posts',
     )
     title = models.TextField(blank=True, null=True)
     image = ProcessedImageField(
