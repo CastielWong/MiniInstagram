@@ -12,6 +12,20 @@ class CustomUser(AbstractUser):
         blank=True,
     )
 
+    def get_following(self):
+        followings = UserConnection.objects.filter(follower=self)
+        return followings
+
+    def get_followers(self):
+        followers = UserConnection.objects.filter(following=self)
+        return followers
+    
+    def is_followed_by(self, uers):
+        return self.get_followers().filter(follower=user).exits()
+    
+    def __str__(self):
+        return self.username
+
 class Post(models.Model):
     author = models.ForeignKey(
         CustomUser,
@@ -66,4 +80,20 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-    
+
+class UserConnection(models.Model):
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    follower = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="is_follower_set"
+    )
+    following = models.ForeignKey(
+        CustomUser,
+        on_delete = models.CASCADE,
+        related_name="is_following_by_set"
+    )
+
+    def __str__(self):
+        return f"{self.follower.username} follows {self.following.username}"
+
