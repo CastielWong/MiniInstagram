@@ -32,7 +32,21 @@
                         {{ object.get_like_count }} like{% if object.get_like_count > 1 %}s{% endif %}
                     {% endif %}
                 </div>
+                <div class="timestamp">
+                    {{ object.posted_on|timesince }}
+                </div>
             </div>
+
+            <ul class="comment-list">
+                {% for comment in object.comments.all %}
+                <li class="comment-list__comment">
+                    <a href="/" class="user">
+                        {{ comment.user.username }}
+                    </a>
+                    <span class="comment">{{ comment.comment }}</span>
+                </li>
+                {% endfor %}
+            </ul>
 
             <a href="{% url 'edit_post' object.pk %}"> Edit Post </a>
             <a href="{% url 'delete_post' object.pk %}"> Delete Post </a>
