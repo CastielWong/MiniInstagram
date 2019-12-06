@@ -4,14 +4,42 @@
 
 {% block content %}
 
+
 <span>{{ object.title }}</span>
 
-<div>
-    <img src="/{{ object.image }}" alt="post image">
-    <div>
-        <a href="{% url 'edit_post' object.pk %}"> Edit Post </a>
-        <a href="{% url 'delete_post' object.pk %}"> Delete Post </a>
-    </div> 
+<div class="row single-post">
+    <div class="single-post-card view-update {{ obejct.pk }} ">
+        <div class="header">
+            <a href="/">
+                {% if object.author.profil_pic %}
+                    <img class="picture-circle--medium" alt="{{ object.author }}"
+                        src="/{{ object.author.profile_pic.url }}">
+                        {% comment %} src="http://{{ request.META.HTTP_HOST }}/{{ object.author.profile_pic.url }} "> {% endcomment %}
+                {% endif %}
+                {{ object.author.username }}
+            </a>
+        </div>
+
+        <div class="image__wrapper">
+            <img class="card__main-image" alt="post image" width="1000" height="1000"
+                src="http://{{ request.META.HTTP_HOST }}/{{ object.image.url }} ">
+        </div>
+
+        <div class="comments-portion">
+            <div class="likes-timestamp-row">
+                <div class="likes">
+                    {% if object.get_like_count %}
+                        {{ object.get_like_count }} like{% if object.get_like_count > 1 %}s{% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <a href="{% url 'edit_post' object.pk %}"> Edit Post </a>
+            <a href="{% url 'delete_post' object.pk %}"> Delete Post </a>
+        </div>
+    </div>
 </div>
+
+
 
 {% endblock content %}

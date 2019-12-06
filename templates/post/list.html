@@ -4,17 +4,29 @@
 
 {% block content %}
 
-
-<div>
-    <a href="{% url 'make_post' %}"> Make Post </a>
-</div>
-
-
-<div>
+<div class="cards-listing">
     {% for post in object_list %}
-        <a href="{% url 'post_detail' post.pk %}">
-            <img src="/{{ post.image }}" alt="post image" width=200 height=200>
-        </a>
+        <div class="row">
+            <div class="card view-update {{ post.pk }}">
+                <div class="card__panel-head">
+                    <div class="poster__info">
+                        <a href="/" class="poster__name">
+                            {% if post.author.profile_pic %}
+                                <img class="poster__profilepic" src="/{{ post.author.profile_pic.url }}">
+                            {% endif %}
+                            {{ post.author.username }}
+                        </a>
+                        <span class="poster__timestamp">
+                            {{ post.posted_on|timesince }}
+                        </span>
+                    </div>
+                </div>
+
+                <a href="{% url 'post_detail' post.pk %}">
+                    <img src="/{{ post.image }}" alt="post image">
+                </a>
+            </div>
+        </div> 
     {% endfor %}
 </div>
 
