@@ -9,11 +9,11 @@
 
         <link href="{% static 'vendor/bootstrap-3.3.4/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'vendor/fontawesome-5.11.2/css/all.css' %}" rel="stylesheet">
-        {% comment %} <link href="{% static 'css/style.css' %}" rel="stylsheet"> {% endcomment %}
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
     </head>
     <body>
         {% include 'header.html' %}
-
+        
         <div class="content-wrapper">
             <div class="container">
                 {% block content %}
@@ -22,7 +22,7 @@
         </div>
 
         <script type="text/javascript" src="{% static 'vendor/jquery-3.4.1.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'vendor/bootstrap-4.4.1/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'vendor/bootstrap-3.3.4/js/bootstrap.min.js' %}"></script>
 
         {% block extrascript %}
         {% endblock extrascript %}
