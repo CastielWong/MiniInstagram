@@ -1,35 +1,14 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import AbstractUser
 from imagekit.models import ProcessedImageField
 
-class CustomUser(AbstractUser):
-    profile_pic = ProcessedImageField(
-        upload_to='static/images/profiles',
-        format='JPEG',
-        options={'quality': 100},
-        null=True,
-        blank=True,
-    )
+# the project directory is the root
+from user import models as user
 
-    def __str__(self):
-        return self.username
-
-    def get_followings(self):
-        followings = UserConnection.objects.filter(follower=self)
-        return followings
-
-    def get_followers(self):
-        followers = UserConnection.objects.filter(following=self)
-        return followers
-    
-    def is_followed_by(self, uers):
-        return self.get_followers().filter(follower=user).exits()
-    
 
 class Post(models.Model):
     author = models.ForeignKey(
-        CustomUser,
+        user.CustomUser,
         blank=True,
         null=True,
         on_delete=models.CASCADE,
@@ -65,7 +44,7 @@ class Post(models.Model):
     
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(user.CustomUser, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("post", "user")
@@ -75,26 +54,10 @@ class Like(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(user.CustomUser, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
     posted_on = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
         return self.comment
-
-class UserConnection(models.Model):
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    follower = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name="is_follower_set"
-    )
-    following = models.ForeignKey(
-        CustomUser,
-        on_delete = models.CASCADE,
-        related_name="is_following_by_set"
-    )
-
-    def __str__(self):
-        return f"{self.follower.username} follows {self.following.username}"
 

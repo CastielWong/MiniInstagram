@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 
 from django.contrib.auth.forms import UserCreationForm
 
-from post import form
+from user import form
 
 class HelloDjango(TemplateView):
     template_name = 'index.html'

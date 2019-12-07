@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imagekit',
+    'user',
     'post',
 ]
 
@@ -128,4 +129,4 @@ LOGIN_REDIRECT_URL = 'index'
 
 LOGOUT_REDIRECT_URL = 'index'
 
-AUTH_USER_MODEL = 'post.CustomUser'
+AUTH_USER_MODEL = 'user.CustomUser'

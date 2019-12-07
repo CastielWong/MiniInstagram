@@ -221,7 +221,7 @@ find . -path "*/migrations/*.pyc"  -delete
 2. Remove existing database and static files (make sure it's expected since everything would be cleanup):
 ```sh
 rm db.sqlite3
-rm -r static
+rm -r static/images
 ```
 3. Regenerate migrations and database schema:
 ```sh
