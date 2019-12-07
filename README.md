@@ -236,10 +236,9 @@ python manage.py migrate
 
 Class-based view vs Function view
 
-Django would generate a plural which is equal to `object_list` in the html, like `posts` for model Post.
+Django would generate a plural variable which is equal to `object_list` in the html, like `posts` for model Post.
 
-
-`pipenv install django-annoying`
+Install django-annoying for toggling like icon: `pipenv install django-annoying`
 
 `pipenv lock`: check all the packages are updated
 
@@ -323,7 +322,7 @@ Django includes:
 - Customizing authentication in Django: https://docs.djangoproject.com/en/2.2/topics/auth/customizing/
 - Django Templates: https://docs.djangoproject.com/en/2.2/topics/templates/
 - Custom template tags and filters: https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/
-- https://github.com/yibeibaoke/InstaDemo
+- Access Mixins: https://django-braces.readthedocs.io/en/latest/access.html
+- JiuZhang demo: https://github.com/yibeibaoke/InstaDemo
 - Django Rest framework: https://www.django-rest-framework.org/
 - How to Reset Migrations: https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
-- Access Mixins: https://django-braces.readthedocs.io/en/latest/access.html

@@ -15,7 +15,7 @@ function create_like(success_cb, error_cb) {
 
     $.ajax({
         type: "POST",
-        url: '/like',
+        url: '/posts/like',
         data: {
             post_pk: post_pk
         },
@@ -30,9 +30,9 @@ function like_update_view(data) {
     // toggle heart
     var $hiddenData = $('.hidden-data.' + data.post_pk);
     if (data.result) {
-      $hiddenData.siblings('.submit-like').removeClass('fa-heart-o').addClass('fa-heart');
+      $hiddenData.siblings('.submit-like').removeClass('far').addClass('fas');
     } else {
-      $hiddenData.siblings('.submit-like').removeClass('fa-heart').addClass('fa-heart-o');
+      $hiddenData.siblings('.submit-like').removeClass('fas').addClass('far');
     }
   
     // update like count

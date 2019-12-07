@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from annoying.decorators import ajax_request
 
 from . import models
 
@@ -39,3 +40,21 @@ class PostDeleteView(DeleteView, LoginRequiredMixin):
     model = models.Post
     template_name = "post/delete.html"
     success_url = reverse_lazy("post_list")
+
+@ajax_request
+def addLike(request):
+    post_pk = request.POST.get('post_pk')
+    post = models.Post.objects.get(pk=post_pk)
+    try:
+        like = models.Like(post=post, user=request.user)
+        like.save()
+        result = 1
+    except Exception as e:
+        like = models.Like.objects.get(post=post, user=request.user)
+        like.delete()
+        result = 0
+    
+    return {
+        'result': result,
+        'post_pk': post_pk
+    }
