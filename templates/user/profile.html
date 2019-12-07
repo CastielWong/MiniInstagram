@@ -1,6 +1,8 @@
 
 {% extends '../base.html' %}
 
+{% load custom_tags %}
+
 {% block content %}
 
 <div class="profile">
@@ -18,7 +20,23 @@
                         <button class="edit-profile">Edit Profile</button>
                     </a>
                 {% else %}
-                    <button class="btn btn-primary" id="{{ object.pk }}">Follow</button>
+                    {% is_following user object as following %}
+                    <div class="follow-toggle__container">
+                        <button class="btn btn-primary 
+                                {% if not following %}
+                                    follow-user
+                                {% else %}
+                                    unfollow-user
+                                {% endif %}"
+                                id="{{ object.pk }}">
+                            {% if following %}
+                                Unfollow
+                            {% else %}
+                                Follow
+                            {% endif %}
+                        </button>
+                    </div>
+
                 {% endif %}
             </div>
 
@@ -26,20 +44,20 @@
                 <ul class="stats">
                     <div class="col-xs-4">
                         <li class="stats__count">
-                            <span>{{ object.posts.count }}<br> posts</span>
+                            <span>{{ object.posts.count }}</span><br> posts
                             </li>
                     </div>
                     <div class="col-xs-4">
                         <a href="/" style="text-decoration: none; color: black;">
                             <li class="stats__count">
-                                <span>{{ object.get_followers.count }}<br> followers</span>
+                                <span class="follower_count" id="follower_id">{{ object.get_followers.count }}</span><br> followers
                             </li>
                         </a>
                     </div>
                     <div class="col-xs-4">
                         <a href="/" style="text-decoration: none; color: black;">
                             <li class="stats__count">
-                                <span>{{ object.get_followings.count }}<br> followings</span>
+                                <span>{{ object.get_followings.count }}</span><br> followings
                             </li>
                         </a>
                     </div>

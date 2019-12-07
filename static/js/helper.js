@@ -125,7 +125,7 @@ function follow_user(success_cb, error_cb, type) {
   
     $.ajax({
       type: "POST",
-      url: '/togglefollow',
+      url: '/user/togglefollow',
       data: {
         follow_user_pk: follow_user_pk,
         type: type
@@ -144,6 +144,7 @@ function update_follow_view(data) {
 
     var $span = $('.follower_count');
     var span_text = parseInt(document.getElementById("follower_id").innerText);
+
     $span.text(span_text + 1);
 }
 
