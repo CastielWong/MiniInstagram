@@ -31,8 +31,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(UpdateView, LoginRequiredMixin):
     login_url = "login"
     model = models.Post
-    template_name = "post/update.html"
     fields = ["title"]
+    template_name = "post/update.html"
 
 class PostDeleteView(DeleteView, LoginRequiredMixin):
     login_url = "login"

@@ -14,7 +14,7 @@
             <div class="name-buttons">
                 <h1 class="username">{{ object.username }}</h1>
                 {% if user == object %}
-                    <a class="edit-desktop" href="/">
+                    <a class="edit-desktop" href="{% url 'update_profile' object.pk %}">
                         <button class="edit-profile">Edit Profile</button>
                     </a>
                 {% else %}
