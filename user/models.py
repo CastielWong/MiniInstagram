@@ -4,6 +4,7 @@ from imagekit.models import ProcessedImageField
 
 
 class CustomUser(AbstractUser):
+    user_alias = models.CharField(max_length=30)
     profile_pic = ProcessedImageField(
         upload_to='static/images/profiles',
         format='JPEG',

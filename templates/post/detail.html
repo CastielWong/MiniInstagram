@@ -14,7 +14,7 @@
                         src="/{{ object.author.profile_pic.url }}">
                         {% comment %} src="http://{{ request.META.HTTP_HOST }}/{{ object.author.profile_pic.url }} "> {% endcomment %}
                 {% endif %}
-                {{ object.author.username }}
+                {{ object.author.user_alias }}
             </a>
         </div>
 
@@ -42,7 +42,7 @@
                 {% for comment in object.comments.all %}
                 <li class="comment-list__comment">
                     <a href="{% url 'profile' comment.user.pk %}" class="user">
-                        {{ comment.user.username }}
+                        {{ comment.user.user_alias }}
                     </a>
                     <span class="comment">{{ comment.comment }}</span>
                 </li>

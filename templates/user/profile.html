@@ -14,7 +14,7 @@
         </div>
         <div class="col-xs-8 right">
             <div class="name-buttons">
-                <h1 class="username">{{ object.username }}</h1>
+                <h1 class="username">{{ object.user_alias }}</h1>
                 {% if user == object %}
                     <a class="edit-desktop" href="{% url 'update_profile' object.pk %}">
                         <button class="edit-profile">Edit Profile</button>

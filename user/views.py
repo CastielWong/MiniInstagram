@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -14,8 +15,9 @@ class Profile(LoginRequiredMixin, DetailView):
 class UpdateProfile(LoginRequiredMixin, UpdateView):
     login_url = "login"
     model = models.CustomUser
-    fields = ['username', 'profile_pic']
+    fields = ['user_alias', 'profile_pic']
     template_name = "user/update.html"
+    success_url = reverse_lazy("post_list")
 
 @ajax_request
 def toggleFollow(request):

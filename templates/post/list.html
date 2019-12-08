@@ -15,7 +15,7 @@
                             {% if post.author.profile_pic %}
                                 <img class="poster__profilepic" src="/{{ post.author.profile_pic.url }}">
                             {% endif %}
-                            {{ post.author.username }}
+                            {{ post.author.user_alias }}
                         </a>
                         <span class="poster__timestamp">
                             {{ post.posted_on|timesince }}
@@ -38,7 +38,7 @@
                         {% for comment in post.comments.all %}
                         <li class="comment-list__comment">
                             <a href="{% url 'profile' comment.user.pk %}" class="user">
-                                {{ comment.user.username }}
+                                {{ comment.user.user_alias }}
                             </a>
                             <span class="comment">{{ comment.comment }}</span>
                         </li>
