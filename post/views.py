@@ -58,3 +58,32 @@ def addLike(request):
         'result': result,
         'post_pk': post_pk
     }
+
+@ajax_request
+def addComment(request):
+    comment_text = request.POST.get('comment_text')
+    post_pk = request.POST.get('post_pk')
+    post = models.Post.objects.get(pk=post_pk)
+    commenter_info = {}
+
+    try:
+        comment = models.Comment(comment=comment_text, user=request.user, post=post)
+        comment.save()
+
+        username = request.user.username
+
+        commenter_info = {
+            'username': username,
+            'comment_text': comment_text
+        }
+
+        result = 1
+    except Exception as e:
+        print(e)
+        result = 0
+
+    return {
+        'result': result,
+        'post_pk': post_pk,
+        'commenter_info': commenter_info
+    }
