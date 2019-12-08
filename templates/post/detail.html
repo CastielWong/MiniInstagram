@@ -5,12 +5,10 @@
 {% block content %}
 
 
-<span>{{ object.title }}</span>
-
 <div class="row single-post">
     <div class="single-post-card view-update {{ obejct.pk }} ">
         <div class="header">
-            <a href="/">
+            <a href="{% url 'profile' object.author.pk %}">
                 {% if object.author.profil_pic %}
                     <img class="picture-circle--medium" alt="{{ object.author }}"
                         src="/{{ object.author.profile_pic.url }}">
@@ -21,8 +19,11 @@
         </div>
 
         <div class="image__wrapper">
-            <img class="card__main-image" alt="post image"
+            <img class="card__main-image" alt="post image" 
                 src="http://{{ request.META.HTTP_HOST }}/{{ object.image.url }}">
+            <center>
+                <h5>{{ object.title }}</h5>
+            </center>
         </div>
 
         <div class="comments-portion">
@@ -40,7 +41,7 @@
             <ul class="comment-list">
                 {% for comment in object.comments.all %}
                 <li class="comment-list__comment">
-                    <a href="/" class="user">
+                    <a href="{% url 'profile' comment.user.pk %}" class="user">
                         {{ comment.user.username }}
                     </a>
                     <span class="comment">{{ comment.comment }}</span>
@@ -48,12 +49,14 @@
                 {% endfor %}
             </ul>
 
-            <a href="{% url 'update_post' object.pk %}"> Edit Post </a>
-            <a href="{% url 'delete_post' object.pk %}"> Delete Post </a>
+            <div>
+                <a href="{% url 'update_post' object.pk %}">Edit Post</a>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'delete_post' object.pk %}">Delete Post</a>
+            </div>
         </div>
     </div>
 </div>
-
 
 
 {% endblock content %}
