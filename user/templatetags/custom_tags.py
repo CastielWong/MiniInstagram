@@ -4,7 +4,7 @@ import re
 from django import template
 from django.urls import NoReverseMatch, reverse
 
-from post import models as post
+from post.models import Like
 
 
 register = template.Library()
@@ -16,10 +16,10 @@ def is_following(current_user, background_user):
 @register.simple_tag
 def has_user_liked_post(post, user):
     try:
-        like = post.Like.objects.get(post=post, user=user)
-        return "fa-heart"
+        like = Like.objects.get(post=post, user=user)
+        return "fas"
     except:
-        return "fa-heart-o"
+        return "far"
 
 @register.simple_tag(takes_context=True)
 def active(context, pattern_or_urlname):
