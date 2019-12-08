@@ -27,7 +27,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = "login"
     model = models.Post
     template_name = "post/create.html"
-    fields = "__all__"
+    # fields = "__all__"
+    fields = ["title", "image"]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class PostUpdateView(UpdateView, LoginRequiredMixin):
     login_url = "login"

@@ -49,11 +49,13 @@
                 {% endfor %}
             </ul>
 
-            <div>
-                <a href="{% url 'update_post' object.pk %}">Edit Post</a>
-                &nbsp; &nbsp; &nbsp;
-                <a href="{% url 'delete_post' object.pk %}">Delete Post</a>
-            </div>
+            {% if user == object.author %}
+                <div>
+                    <a href="{% url 'update_post' object.pk %}">Edit Post</a>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'delete_post' object.pk %}">Delete Post</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
