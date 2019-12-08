@@ -245,40 +245,69 @@ Install django-annoying for toggling like icon: `pipenv install django-annoying`
 
 
 # Deployment
-1. Install [Heroku](https://devcenter.heroku.com/articles/heroku-cli)
+If not directly clone from this project, make sure:
 
-2. Register Heroku then run `heroku login` to use Heroku CLI
+1. Install package gunicorn and pillow: 
+```sh
+pipenv install gunicorn
+pipenv install pillow
+```
 
-3. Run `pipenv lock` to make sure the dependecies are updated, check "Pipfile" if some packages are incorrect
-
-4. Create file "Procfile" for deployment:
+2. Create file "Procfile" for deployment under root directory:
 ```sh
 web: gunicorn {procjt}.wasgi --log-file -
 ```
 
-5. Install package gunicorn: `pipenv install gunicorn`
+Since `pipenv` has already set up the configuration in this project, follow steps below at first run:
 
+1. Install [Heroku](https://devcenter.heroku.com/articles/heroku-cli).
+
+2. Register Heroku then run `heroku login` to use Heroku CLI.
+
+3. Run `pipenv shell` to create/activate a virtual environment.
+
+4. Run `pipenv lock` to make sure the dependecies are updated, check "Pipfile" if some packages are incorrect.
+
+5. Run `pipenv install django` to install django and all packages related.
+
+6. Create a new Heroku app to deploy the project: 
 ```sh
-
-# create a Heroku app to deploy the project, which would add the app as a remove site if current project is git
 heroku create
+
+# it would add the app as a remove site if current project is git
+git remote -v
 ```
 
-Install package "whitenoise" to make static files uploaded possible.
+7. Install package "whitenoise" to make static files uploaded possible `pipenv install whitenoise`.
 
-`pipenv install whitenoise`: to upload static files
-In seetings.py:
-    - add `'whitenoise.runserver_nostatic',` in INSTALLED_APPS
-    - add `'whitenoise.middleware.WhiteNoiseMiddleware',` in MIDDLEWARE
-    - add `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')` at the end
-    - add `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'` at the end
+8. Update seetings.py:
+- add `'whitenoise.runserver_nostatic',` in INSTALLED_APPS
+- add `'whitenoise.middleware.WhiteNoiseMiddleware',` in MIDDLEWARE
+- add `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')` at the end
+- add `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'` at the end
 
-Run `git push heroku master` to deploy.
-
-`heroku ps:scale web=1`: use web server (one only) other than desktop
-`heroku open`: open the web app
+9. Run `heroku ps:scale web=1` to use web server (one only) other than many.
 
 
+Steps above is only needed to be configured and run once, run commands below to deploy/update the project in Heroku.
+```sh
+# add and commit all the changes
+git add .
+git commit -m "{commit message}"
+
+git push heroku master
+
+# open the web app
+heroku open
+```
+
+__NOTE THAT__ since "db.sqlite3" is needed for Heroku, remember to remove/comment "db.sqlite3" in .gitignore and make another commit before deployment. After deployment, reset .gitignore to avoid accidentally uploading the DB in public git repository and sensitive data leak.
+```sh
+git reset --hard HEAD~1
+```
+
+
+# RESTful
 RESTful: Representational State Transfer
 
 Django Rest framework
