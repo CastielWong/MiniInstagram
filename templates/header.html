@@ -9,7 +9,6 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'post_list' %}"><i class="fas fa-home" aria-hidden="true"></i></a></li>
-                    <li><a href="{% url 'entry' %}"><i class="fas fa-search" aria-hidden="true"></i></a></li>
                     <li><a href="{% url 'make_post' %}"><i class="fas fa-plus" aria-hidden="true"></i></a></li>
                     <li><a href="{% url 'profile' user.pk %}"><i class="fas fa-user" aria-hidden="true"></i></a></li>
                     <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a></li>
