@@ -2,12 +2,10 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.viewsets import ModelViewSet
 
 from annoying.decorators import ajax_request
 
 from post.models import Post, Like, Comment
-from post.serializers import PostSerializer, LikeSerializer, CommentSerializer
 
 
 class PostIndex(ListView):
@@ -94,15 +92,3 @@ def addComment(request):
         'post_pk': post_pk,
         'commenter_info': commenter_info
     }
-
-class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all().order_by('posted_on')
-    serializer_class = PostSerializer
-
-class LikeViewSet(ModelViewSet):
-    queryset = Like.objects.all().order_by('post')
-    serializer_class = LikeSerializer
-
-class CommentViewSet(ModelViewSet):
-    queryset = Comment.objects.all().order_by('posted_on')
-    serializer_class = CommentSerializer

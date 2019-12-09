@@ -18,16 +18,16 @@ from django.urls import path, include
 from rest_framework import routers
 
 from . import views
-from user import views as views_user
 from post import views as views_post
+from api import views as views_api
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views_user.UserViewSet)
-router.register(r'user_connections', views_user.UserConnectionViewSet)
-router.register(r'posts', views_post.PostViewSet)
-router.register(r'likes', views_post.LikeViewSet)
-router.register(r'comments', views_post.CommentViewSet)
+router.register(r'users', views_api.UserViewSet)
+router.register(r'user_connections', views_api.UserConnectionViewSet)
+router.register(r'posts', views_api.PostViewSet)
+router.register(r'likes', views_api.LikeViewSet)
+router.register(r'comments', views_api.CommentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

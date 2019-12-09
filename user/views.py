@@ -1,12 +1,10 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.viewsets import ModelViewSet
 
 from annoying.decorators import ajax_request
 
 from user.models import CustomUser, UserConnection
-from user.serializers import UserSerializer, UserConnectionSerializer
 
 
 class Profile(LoginRequiredMixin, DetailView):
@@ -46,11 +44,3 @@ def toggleFollow(request):
         'type': request.POST.get('type'),
         'follow_user_pk': follow_user_pk
     }
-
-class UserViewSet(ModelViewSet):
-    queryset = CustomUser.objects.all().order_by('date_joined')
-    serializer_class = UserSerializer
-
-class UserConnectionViewSet(ModelViewSet):
-    queryset = UserConnection.objects.all().order_by('created')
-    serializer_class = UserConnectionSerializer

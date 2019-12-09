@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'imagekit',
     'user',
     'post',
+    'api',
 ]
 
 MIDDLEWARE = [
