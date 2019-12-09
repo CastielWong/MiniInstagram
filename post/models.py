@@ -50,7 +50,7 @@ class Like(models.Model):
         unique_together = ("post", "user")
     
     def __str__(self):
-        return f"{self.user.username} likes {self.post.title}"
+        return f"{self.user.user_alias} likes {self.post.title}"
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")

@@ -25,6 +25,9 @@ from post import views as views_post
 router = routers.DefaultRouter()
 router.register(r'users', views_user.UserViewSet)
 router.register(r'user_connections', views_user.UserConnectionViewSet)
+router.register(r'posts', views_post.PostViewSet)
+router.register(r'likes', views_post.LikeViewSet)
+router.register(r'comments', views_post.CommentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

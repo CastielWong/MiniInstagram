@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
     )
 
     def __str__(self):
-        return self.username
+        return self.user_alias
 
     def get_followings(self):
         followings = UserConnection.objects.filter(follower=self)
@@ -41,4 +41,4 @@ class UserConnection(models.Model):
     )
 
     def __str__(self):
-        return f"{self.follower.username} follows {self.following.username}"
+        return f"{self.follower.user_alias} follows {self.following.user_alias}"
