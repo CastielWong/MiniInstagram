@@ -148,7 +148,7 @@ pipenv install django-imagekit
 pip install pillow
 ```
 
-Remember to add them into settings.py to enable:
+Remember to add them into "settings.py" to enable:
 ```py
 ...
 INSTALLED_APPS = [
@@ -159,7 +159,7 @@ INSTALLED_APPS = [
 ```
 
 ### Model
-1. Create a new model in models.py, note that the image path would be created automatically if doesn't exist yet
+1. Create a new model in "models.py", note that the image path would be created automatically if doesn't exist yet
 2. Synchronize model with database:
 ```py
 # `makemigrations` would check the difference between all current models and migrations files in the apps
@@ -174,14 +174,14 @@ from {app}.models import Post
 admin.site.register({model})
 ```
 
-Note that for each model created, Django would add an auto-incremented primary key field automatically, which can be accessed via `pk` or `id`. For example, we can use it into path in urls.py, like `path('{path}/<int:pk>', ...)`.
+Note that for each model created, Django would add an auto-incremented primary key field automatically, which can be accessed via `pk` or `id`. For example, we can use it into path in "urls.py", like `path('{path}/<int:pk>', ...)`.
 
 ### View
-Append `STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]` in settings.py to make sure Django knows where to find static files. 
+Append `STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]` in "settings.py" to make sure Django knows where to find static files. 
 
 View in Django is corresponding to the Controller part in MVC, below shows steps in general to configure View.
 
-1. Configure View in views.py, for example:
+1. Configure View in "views.py", for example:
 ```py
 from django.views.generic import TemplateView
 
@@ -189,7 +189,7 @@ class HelloDjango(TemplateView):
     template_name = 'index.html'
 ```
 2. Configure URLConfs:
-    1. In app level, create a urls.py to manage the inside URLConfiguration
+    1. In app level, create a "urls.py" to manage the inside URLConfiguration
     ```py
     from django.urls import path
 
@@ -209,6 +209,29 @@ class HelloDjango(TemplateView):
     ]
     ```
 3. Create corresponding html under templates directory, note that remember to put '/' for relative path to ensure the source is retrived, like `<img src="/{file}">`. 
+
+
+### API
+To develop the RESTful(Representational State Transfer) API in Django, the framework package is needed: `pipenv install djangorestframework`
+
+Follow steps below to set up the API:
+1. Update "seetings.py":
+    - add `'rest_framework',` in INSTALLED_APPS
+    - append codes below for pagination
+    ```py
+    REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 10
+    }
+    ```
+2. Create serializers for the models
+    - inherit different `ModelSerializer` for each model if needed
+    - set up the fields and their corresponding permission
+3. Create ViewSet in "views.py" (app or project level)
+    - setup `queryset`
+    - set up `serializer_class`
+    - add `permission_classes` for authentication if needed
+4. Configure the path in "urls.py" (project level)
 
 
 ## Deployment
@@ -250,7 +273,7 @@ git remote -v
 
 6. Install package "whitenoise" to make static files uploaded possible `pipenv install whitenoise`.
 
-7. Update seetings.py:
+7. Update "seetings.py":
 - add `'whitenoise.runserver_nostatic',` in INSTALLED_APPS
 - add `'whitenoise.middleware.WhiteNoiseMiddleware',` in MIDDLEWARE
 - add `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')` at the end
@@ -315,16 +338,6 @@ Install django-annoying for toggling like icon: `pipenv install django-annoying`
 
 
 
-# RESTful
-RESTful: Representational State Transfer
-
-`pipenv install djangorestframework`
-
-
-Django Rest framework
-
-
-
 # Django Concept
 
 Framework includes:
@@ -365,5 +378,6 @@ Django includes:
 - Access Mixins: https://django-braces.readthedocs.io/en/latest/access.html
 - JiuZhang demo: https://github.com/yibeibaoke/InstaDemo
 - Django Rest framework: https://www.django-rest-framework.org/
+- Implement Token Authentication using Django REST Framework: https://simpleisbetterthancomplex.com/tutorial/2018/11/22/how-to-implement-token-authentication-using-django-rest-framework.html
 - How to Reset Migrations: https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
 - SQLLite Viewer: http://sqliteviewer.flowsoft7.com/
