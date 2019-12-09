@@ -5,10 +5,12 @@
 
 # migrations and images uploaded are not needed
 */migrations/*.py
-static/images/
 
 # gitignore exception
 !*/migrations/__init__.py
+
+static/images/
+db.sqlite3
 
 ### Django ###
 *.log
@@ -16,7 +18,6 @@ static/images/
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
 db.sqlite3-journal
 media
 

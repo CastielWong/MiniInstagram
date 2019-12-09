@@ -211,40 +211,7 @@ class HelloDjango(TemplateView):
 3. Create corresponding html under templates directory, note that remember to put '/' for relative path to ensure the source is retrived, like `<img src="/{file}">`. 
 
 
-## Reset
-To reset existing database and files, follow steps:
-1. Remove any existing migrations:
-```sh
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc"  -delete
-```
-2. Remove existing database and static files (make sure it's expected since everything would be cleanup):
-```sh
-rm db.sqlite3
-rm -r static/images
-```
-3. Regenerate migrations and database schema:
-```sh
-python manage.py makemigrations
-python manage.py migrate
-```
-
-
-## Other
-{%  %}: template language
-{{  }}: variable
-
-Class-based view vs Function view
-
-Django would generate a plural variable which is equal to `object_list` in the html, like `posts` for model Post.
-
-Install django-annoying for toggling like icon: `pipenv install django-annoying`
-
-`pipenv lock`: check all the packages are updated
-
-
-
-# Deployment
+## Deployment
 If not directly clone from this project, make sure:
 
 1. Install package gunicorn and pillow: 
@@ -266,11 +233,14 @@ Since `pipenv` has already set up the configuration in this project, follow step
 
 3. Run `pipenv shell` to create/activate a virtual environment.
 
-4. Run `pipenv lock` to make sure the dependecies are updated, check "Pipfile" if some packages are incorrect.
+4. Ensure Django and all packages related is installed 
+```sh
+pipenv lock
 
-5. Run `pipenv install django` to install django and all packages related.
+pipenv install django
+```
 
-6. Create a new Heroku app to deploy the project: 
+5. Create a new Heroku app to deploy the project: 
 ```sh
 heroku create
 
@@ -278,22 +248,22 @@ heroku create
 git remote -v
 ```
 
-7. Install package "whitenoise" to make static files uploaded possible `pipenv install whitenoise`.
+6. Install package "whitenoise" to make static files uploaded possible `pipenv install whitenoise`.
 
-8. Update seetings.py:
+7. Update seetings.py:
 - add `'whitenoise.runserver_nostatic',` in INSTALLED_APPS
 - add `'whitenoise.middleware.WhiteNoiseMiddleware',` in MIDDLEWARE
 - add `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')` at the end
 - add `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'` at the end
 
-9. Run `heroku ps:scale web=1` to use web server (one only) other than many.
+8. Run `heroku ps:scale web=1` to use web server (one only) other than many.
 
 
 Steps above is only needed to be configured and run once, run commands below to deploy/update the project in Heroku.
 ```sh
 # add and commit all the changes
 git add .
-git commit -m "{commit message}"
+git commit -m "Deploy to Heroku"
 
 git push heroku master
 
@@ -301,10 +271,48 @@ git push heroku master
 heroku open
 ```
 
-__NOTE THAT__ since "db.sqlite3" is needed for Heroku, remember to remove/comment "db.sqlite3" in .gitignore and make another commit before deployment. After deployment, reset .gitignore to avoid accidentally uploading the DB in public git repository and sensitive data leak.
+__NOTE THAT__ since "db.sqlite3" is needed for Heroku, as well as "static/images/", remember to remove/comment them in .gitignore and make another commit before deployment. After deployment, reset .gitignore to avoid accidentally uploading the DB in public git repository and sensitive data leak.
 ```sh
-git reset --hard HEAD~1
+git reset HEAD~1
+git checkout .gitignore
 ```
+
+
+## Reset
+To reset existing database and files, follow steps:
+1. Remove any existing migrations:
+```sh
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+```
+2. Remove existing database and static files (make sure it's expected since everything would be cleanup):
+```sh
+rm db.sqlite3
+rm -r static/images
+```
+3. Regenerate migrations and database schema:
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+To remove current virtual environment: `pipenv --rm`
+
+To remove the Heroku branch: `git remote rm heroku`
+
+
+## Other
+{%  %}: template language
+{{  }}: variable
+
+Class-based view vs Function view
+
+Django would generate a plural variable which is equal to `object_list` in the html, like `posts` for model Post.
+
+Install django-annoying for toggling like icon: `pipenv install django-annoying`
+
+`pipenv lock`: check all the packages are updated
+
 
 
 # RESTful

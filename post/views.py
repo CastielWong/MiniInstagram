@@ -75,10 +75,10 @@ def addComment(request):
         comment = models.Comment(comment=comment_text, user=request.user, post=post)
         comment.save()
 
-        username = request.user.username
+        user_alias = request.user.user_alias
 
         commenter_info = {
-            'username': username,
+            'username': user_alias,
             'comment_text': comment_text
         }
 
