@@ -18,3 +18,6 @@ class SignUp(CreateView):
     form_class = form.CustomUserCreationForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')
+
+class View404(TemplateView):
+    template_name = 'status/404.html'

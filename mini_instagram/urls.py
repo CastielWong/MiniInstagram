@@ -31,4 +31,5 @@ urlpatterns = [
     # set up general pages
     path('', post.views.PostListView.as_view(), name='index'),
     path('entry/', views.HelloDjango.as_view(), name='entry'),
+    path('404/', views.View404.as_view(), name='page_not_found'),
 ]
