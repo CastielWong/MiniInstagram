@@ -43,6 +43,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # set up general pages
     path('', views_post.PostListView.as_view(), name='index'),
+    path('explore', views.ExploreView.as_view(), name='explore'),
     path('entry/', views.HelloDjango.as_view(), name='entry'),
     path('404/', views.View404.as_view(), name='page_not_found'),
 ]

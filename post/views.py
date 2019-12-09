@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from annoying.decorators import ajax_request
 
@@ -20,11 +20,13 @@ class PostListView(ListView):
 class PostDetailView(LoginRequiredMixin, DetailView):
     # jump to the url if not login
     login_url = "login"
+
     model = Post
     template_name = "post/detail.html"
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = "login"
+
     model = Post
     template_name = "post/create.html"
     # fields = "__all__"
@@ -34,14 +36,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PostUpdateView(UpdateView, LoginRequiredMixin):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     login_url = "login"
+
     model = Post
     fields = ["title"]
     template_name = "post/update.html"
 
-class PostDeleteView(DeleteView, LoginRequiredMixin):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     login_url = "login"
+
     model = Post
     template_name = "post/delete.html"
     success_url = reverse_lazy("post_list")

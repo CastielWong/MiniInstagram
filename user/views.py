@@ -9,11 +9,13 @@ from user.models import CustomUser, UserConnection
 
 class Profile(LoginRequiredMixin, DetailView):
     login_url = "login"
+
     model = CustomUser
     template_name = "user/profile.html"
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
     login_url = "login"
+    
     model = CustomUser
     fields = ['user_alias', 'profile_pic']
     template_name = "user/update.html"

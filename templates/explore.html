@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% load custom_tags %}
+
+{% block content %}
+
+<div class="row" id="explore">
+    {% for post in object_list %}
+        <!-- call function is_following() to check if current user is a follower of the post -->
+        {% is_following user post.author as following %}
+
+        {% if following %}
+            <div class="col-xs-4 col-sm-6">
+                <div class="picture-square" style="background-image: url(http://{{ request.META.HTTP_HOST }}/{{ post.image.url }}); background-size: contain;">
+                    <a href="{% url 'post_detail' post.pk %}">
+                        <div class="content"></div>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}
