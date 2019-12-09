@@ -1,37 +1,39 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.viewsets import ModelViewSet
 
 from annoying.decorators import ajax_request
 
-from . import models
+from user.models import CustomUser, UserConnection
+from user.serializers import UserSerializer, UserConnectionSerializer
 
 
 class Profile(LoginRequiredMixin, DetailView):
     login_url = "login"
-    model = models.CustomUser
+    model = CustomUser
     template_name = "user/profile.html"
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
     login_url = "login"
-    model = models.CustomUser
+    model = CustomUser
     fields = ['user_alias', 'profile_pic']
     template_name = "user/update.html"
     success_url = reverse_lazy("post_list")
 
 @ajax_request
 def toggleFollow(request):
-    current_user = models.CustomUser.objects.get(pk=request.user.pk)
+    current_user = CustomUser.objects.get(pk=request.user.pk)
     follow_user_pk = request.POST.get('follow_user_pk')
-    follow_user = models.CustomUser.objects.get(pk=follow_user_pk)
+    follow_user = CustomUser.objects.get(pk=follow_user_pk)
 
     try:
         if current_user != follow_user:
             if request.POST.get('type') == 'follow':
-                connection = models.UserConnection(follower=current_user, following=follow_user)
+                connection = UserConnection(follower=current_user, following=follow_user)
                 connection.save()
             elif request.POST.get('type') == 'unfollow':
-                models.UserConnection.objects.filter(follower=current_user, following=follow_user).delete()
+                UserConnection.objects.filter(follower=current_user, following=follow_user).delete()
             result = 1
         else:
             result = 0
@@ -44,3 +46,11 @@ def toggleFollow(request):
         'type': request.POST.get('type'),
         'follow_user_pk': follow_user_pk
     }
+
+class UserViewSet(ModelViewSet):
+    queryset = CustomUser.objects.all().order_by('date_joined')
+    serializer_class = UserSerializer
+
+class UserConnectionViewSet(ModelViewSet):
+    queryset = UserConnection.objects.all().order_by('created')
+    serializer_class = UserConnectionSerializer

@@ -318,6 +318,9 @@ Install django-annoying for toggling like icon: `pipenv install django-annoying`
 # RESTful
 RESTful: Representational State Transfer
 
+`pipenv install djangorestframework`
+
+
 Django Rest framework
 
 
@@ -363,3 +366,4 @@ Django includes:
 - JiuZhang demo: https://github.com/yibeibaoke/InstaDemo
 - Django Rest framework: https://www.django-rest-framework.org/
 - How to Reset Migrations: https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html
+- SQLLite Viewer: http://sqliteviewer.flowsoft7.com/

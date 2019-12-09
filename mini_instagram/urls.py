@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 
 from . import views
-import post
+from user import views as views_user
+from post import views as views_post
+
+
+router = routers.DefaultRouter()
+router.register(r'users', views_user.UserViewSet)
+router.register(r'user_connections', views_user.UserConnectionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,8 +35,11 @@ urlpatterns = [
     # browse something like "localhost:8000/auth/demo" to see what path is provided
     path('auth/', include('django.contrib.auth.urls')),
     path('auth/signup', views.SignUp.as_view(), name='signup'),
+    # set up RESTful API
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # set up general pages
-    path('', post.views.PostListView.as_view(), name='index'),
+    path('', views_post.PostListView.as_view(), name='index'),
     path('entry/', views.HelloDjango.as_view(), name='entry'),
     path('404/', views.View404.as_view(), name='page_not_found'),
 ]
