@@ -20,6 +20,8 @@
 # Mini Instragram
 Instructions below is for Mac specifically, windows can be a bit different.
 
+For example, the prototype is implemented and deployed on: https://gentle-ridge-32032.herokuapp.com/
+
 
 ## Overview
 Functions: 
