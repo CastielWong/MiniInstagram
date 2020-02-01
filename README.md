@@ -13,6 +13,8 @@
     - [Reset](#reset)
     - [Other](#other)
 - [Deployment](#deployment)
+    - [Docker](#docker)
+    - [Heroku](#heroku)
 - [Django Concept](#django-concept)
 - [Authentication vs Authorization](#authentication-vs-authorization)
 - [Reference](#reference)
@@ -237,6 +239,23 @@ Follow steps below to set up the API:
 
 
 ## Deployment
+### Docker
+Docker is quite convenient to run the application locally, follow steps below to run the application via Docker:
+
+1. Install the [Docker](https://www.docker.com/products/docker-desktop) then run
+2. Get into current project directory
+3. Run `docker-compose up -d` to setup the application through "Dockerfile" and "docker-compose.yml"
+4. Open the browser and check "http://localhost:8000/", the application is already running at the backend
+
+To stop the application, check and stop the corresponding Docker container. Step 3 to 5 are for the purpose of clean-up:
+1. Check the container ID via `docker ps -a`
+2. Stop the container `docker stop {container_ID}`
+3. Delete the container `docker rm {container_ID}`
+4. Check the image ID `docker images`
+5. Delete the corresponding image `docker rmi {image_ID}`
+
+
+### Heroku
 If not directly clone from this project, make sure:
 
 1. Install package gunicorn and pillow: 
