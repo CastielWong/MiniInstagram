@@ -43,7 +43,7 @@ Install software and tools to be used:
 - Xcode tool:
 - Homebrew: software package management system for Mac
 - Python: interpreted, high-level, general-purpose programming language
-- pipenv: manage python packages in virtual environment
+- virtualenv: manage python packages in virtual environment
 
 1. Install Xcode tool chain and Homebrew:
 ```sh
@@ -53,7 +53,7 @@ xcode-select --install
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 2. Install Python via Homebrew: `brew install python3`
-3. Install pipenv via pip: `pip3 install pipenv`
+3. Install virtualenv via pip: `pip install virtualenv`
 
 ### Initialization
 For any new project, follow steps below:
@@ -62,32 +62,40 @@ For any new project, follow steps below:
 mkdir MiniInstagram
 cd MiniInstagram
 ```
-2. Create the Django project
+2. Create a virtual enviroment for the project
 ```sh
-# activate this project's virtualenv, the virtual environment would be created if doesn't exist
-pipenv shell
+# create a virtual enviroment called venv
+virtualenv -p /usr/local/bin/python3 venv
 
+# activate the virtual environment
+source venv/bin/activate
+
+# deactivate the virtual environment if needed
+deactivate
+```
+3. Create the Django project
+```sh
 # install Django inside the project via pipenv: 
-pipenv install django
+pip install django
 
 # create the Django project with an identifiable name under current directory
 django-admin startproject {project} .
 ```
-3. Run the project to verify http://localhost:8000/ is working properly, a SQLite DB should be created accordingly: 
+4. Run the project to verify http://localhost:8000/ is working properly, a SQLite DB should be created accordingly: 
 ```py
 python manage.py runserver
 ```
-4. Create an admin user for the project
+5. Create an admin user for the project
 ```py
 # migrate all default apps
 python manage.py migrate
 # After migration, create an admin user for the project: 
 python manage.py createsuperuser
 ```
-5. Log in as the admin user via http://localhost:8000/admin/
-6. Press CONTROL-C to quit
-7. Deactivate the virtual environment: `exit`
-8. Create a template directory for html files and map it in "{project}/setting.py"
+6. Log in as the admin user via http://localhost:8000/admin/
+7. Press CONTROL-C to quit
+8. Deactivate the virtual environment: `exit`
+9. Create a template directory for html files and map it in "{project}/setting.py"
 ```py
 TEMPLATES = [
     {
