@@ -5,7 +5,6 @@
 - [Initialization](#initialization)
 - [Development](#development)
     - [Component](#component)
-    - [External Library](#external-library)
     - [Model](#model)
     - [View](#view)
     - [API](#api)
@@ -125,24 +124,6 @@ INSTALLED_APPS = [
 ...
 ```
 
-## External Library
-Install 3rd party below to support more functionalities:
-```sh
-# install for better image rendering
-pip install django-imagekit
-# pillow is needed for the Python Imaging Library
-pip install pillow
-```
-
-Remember to add them into "settings.py" to enable:
-```py
-...
-INSTALLED_APPS = [
-    ...,
-    'imagekit',
-    ...
-]
-```
 
 ## Model
 1. Create a new model in "models.py", note that the image path would be created automatically if doesn't exist yet
@@ -163,10 +144,20 @@ admin.site.register({model})
 Note that for each model created, Django would add an auto-incremented primary key field automatically, which can be accessed via `pk` or `id`. For example, we can use it into path in "urls.py", like `path('{path}/<int:pk>', ...)`.
 
 ## View
+Install the ImageKit first for better image rendering: `pip install django-imagekit`.
+Do not forget to add them into "settings.py" to take effect:
+```py
+...
+INSTALLED_APPS = [
+    ...,
+    'imagekit',
+    ...
+]
+```
+
 Append `STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]` in "settings.py" to make sure Django knows where to find static files. 
 
-View in Django is corresponding to the Controller part in MVC, below shows steps in general to configure View.
-
+View in Django is corresponding to the Controller part in MVC, below shows steps in general to configure View:
 1. Configure View in "views.py", for example:
 ```py
 from django.views.generic import TemplateView
@@ -228,4 +219,4 @@ Class-based view vs Function view
 
 Django would generate a plural variable which is equal to `object_list` in the html, like `posts` for model Post.
 
-Install django-annoying for toggling like icon: `pip install django-annoying`
+Install django-annoying for toggling, like icon flipped: `pip install django-annoying`

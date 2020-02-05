@@ -1,1 +1,1 @@
-web: gunicorn mini_instagram.wsgi --log-file -
+web: gunicorn application/mini_instagram.wsgi --log-file -
