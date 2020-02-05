@@ -20,9 +20,9 @@
 - [Reference](#reference)
 
 # Mini Instragram
-Instructions below is for Mac specifically, windows can be a bit different.
+The prototype is implemented and deployed on: https://gentle-ridge-32032.herokuapp.com/
 
-For example, the prototype is implemented and deployed on: https://gentle-ridge-32032.herokuapp.com/
+Instructions below is for Mac specifically, windows can be a bit different.
 
 
 ## Overview
@@ -33,22 +33,19 @@ Functions:
 - Friends: follow/unfollow, following/follower
 - Content: images upload
 
-Toolkit: git, homebrew, pipenv, heroku
+Toolkit: git, homebrew, virtualenv, heroku
 
 
 ## Preparation
 
 ### Installation
 Install software and tools to be used:
-- Xcode tool:
 - Homebrew: software package management system for Mac
 - Python: interpreted, high-level, general-purpose programming language
 - virtualenv: manage python packages in virtual environment
 
-1. Install Xcode tool chain and Homebrew:
+1. Install Homebrew:
 ```sh
-xcode-select --install
-
 # check https://brew.sh/
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -75,7 +72,7 @@ deactivate
 ```
 3. Create the Django project
 ```sh
-# install Django inside the project via pipenv: 
+# install Django in the virtual environment: 
 pip install django
 
 # create the Django project with an identifiable name under current directory
@@ -133,8 +130,6 @@ The general structure of the project:
     - profiles
 - templates: __VIEW__, all html templates
 - manage.py: run Django commands
-- Pipfile: Django packages meta
-- Pipfile.lock: Django packages details
 
 
 ## Development
@@ -155,7 +150,7 @@ INSTALLED_APPS = [
 Install 3rd party below to support more functionalities:
 ```sh
 # install for better image rendering
-pipenv install django-imagekit
+pip install django-imagekit
 # pillow is needed for the Python Imaging Library
 pip install pillow
 ```
@@ -224,7 +219,7 @@ class HelloDjango(TemplateView):
 
 
 ### API
-To develop the RESTful(Representational State Transfer) API in Django, the framework package is needed: `pipenv install djangorestframework`
+To develop the RESTful(Representational State Transfer) API in Django, the framework package is needed: `pip install djangorestframework`
 
 Follow steps below to set up the API:
 1. Update "seetings.py":
@@ -268,8 +263,8 @@ If not directly clone from this project, make sure:
 
 1. Install package gunicorn and pillow: 
 ```sh
-pipenv install gunicorn
-pipenv install pillow
+pip install gunicorn
+pip install pillow
 ```
 
 2. Create file "Procfile" for deployment under root directory:
@@ -277,19 +272,17 @@ pipenv install pillow
 web: gunicorn {procjt}.wasgi --log-file -
 ```
 
-Since `pipenv` has already set up the configuration in this project, follow steps below at first run:
+Since the configuration for this project is set up, follow steps below at first run:
 
 1. Install [Heroku](https://devcenter.heroku.com/articles/heroku-cli).
 
 2. Register Heroku then run `heroku login` to use Heroku CLI.
 
-3. Run `pipenv shell` to create/activate a virtual environment.
+3. Run `source venv/bin/activate` to activate a virtual environment.
 
 4. Ensure Django and all packages related is installed 
 ```sh
-pipenv lock
-
-pipenv install django
+pip install -r requirements.txt
 ```
 
 5. Create a new Heroku app to deploy the project: 
@@ -300,7 +293,7 @@ heroku create
 git remote -v
 ```
 
-6. Install package "whitenoise" to make static files uploaded possible `pipenv install whitenoise`.
+6. Install package "whitenoise" to make static files uploaded possible `pip install whitenoise`.
 
 7. Update "seetings.py":
 - add `'whitenoise.runserver_nostatic',` in INSTALLED_APPS
@@ -348,7 +341,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-To remove current virtual environment: `pipenv --rm`
+To remove current virtual environment: `rm -r venv`
 
 To remove the Heroku branch: `git remote rm heroku`
 
@@ -361,9 +354,7 @@ Class-based view vs Function view
 
 Django would generate a plural variable which is equal to `object_list` in the html, like `posts` for model Post.
 
-Install django-annoying for toggling like icon: `pipenv install django-annoying`
-
-`pipenv lock`: check all the packages are updated
+Install django-annoying for toggling like icon: `pip install django-annoying`
 
 
 
