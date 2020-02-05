@@ -5,5 +5,5 @@ WORKDIR /code
 RUN pip install virtualenv
 RUN python3 -m virtualenv --python=/usr/local/bin/python3 /code/venv
 RUN . /code/venv/bin/activate
-COPY . /code
+COPY application/ /code
 RUN pip install -r requirements.txt

@@ -75,24 +75,27 @@ deactivate
 # install Django in the virtual environment: 
 pip install django
 
-# create the Django project with an identifiable name under current directory
+mkdir application
+cd application
+
+# create the Django project with an identifiable name under current directory, which includes configurations
 django-admin startproject {project} .
 ```
 4. Run the project to verify http://localhost:8000/ is working properly, a SQLite DB should be created accordingly: 
 ```py
 python manage.py runserver
 ```
-5. Create an admin user for the project
+5. Create an admin user for the project, follow the prompt to set up username and password:
 ```py
 # migrate all default apps
 python manage.py migrate
-# After migration, create an admin user for the project: 
+# create an admin user for the project after migration
 python manage.py createsuperuser
 ```
 6. Log in as the admin user via http://localhost:8000/admin/
 7. Press CONTROL-C to quit
-8. Deactivate the virtual environment: `exit`
-9. Create a template directory for html files and map it in "{project}/setting.py"
+8. Deactivate the virtual environment: `deactivate`
+9. Create a template directory to keep all html files under current directory, then map it in "{project}/setting.py"
 ```py
 TEMPLATES = [
     {
@@ -219,7 +222,7 @@ class HelloDjango(TemplateView):
 
 
 ### API
-To develop the RESTful(Representational State Transfer) API in Django, the framework package is needed: `pip install djangorestframework`
+To develop the RESTful (Representational State Transfer) API in Django, the framework package is needed: `pip install djangorestframework`
 
 Follow steps below to set up the API:
 1. Update "seetings.py":

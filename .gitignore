@@ -4,12 +4,12 @@
 
 
 # migrations and images uploaded are not needed
-*/migrations/*.py
+application/*/migrations/*.py
 
 # gitignore exception
-!*/migrations/__init__.py
+!application/*/migrations/__init__.py
 
-static/images/
+application/static/images/
 
 
 ### Django ###
