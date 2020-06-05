@@ -1,4 +1,6 @@
 
+The prototype is deployed on: https://gentle-ridge-32032.herokuapp.com/
+
 - [Overview](#overview)
 - [Preparation](#preparation)
 - [Deployment](#deployment)
@@ -12,10 +14,8 @@
 
 
 ## Overview
-The prototype:
-- It's deployed on: https://gentle-ridge-32032.herokuapp.com/
-- Its API endpoints: https://gentle-ridge-32032.herokuapp.com/api/, to be able to check all of the APIs, an account to login is needed
 - For the purpose of authentication, a visitor account is provided in the login page: https://gentle-ridge-32032.herokuapp.com/auth/login/
+- To be able to check all of the APIs, an account to login is needed, API endpoints of the prototype: https://gentle-ridge-32032.herokuapp.com/api/
 
 To familiarize with Django, jump to [Django 101](django_101.md) for details.
 
